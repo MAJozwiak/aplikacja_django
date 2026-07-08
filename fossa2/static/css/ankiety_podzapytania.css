@@ -1,0 +1,316 @@
+
+/* 1. Kontener switchera */
+.mode-switcher {
+    display: flex;
+    gap: 0;
+    margin: 20px 0; /* Przywr贸ci艂em lekki margines, 偶eby nie klei艂o si臋 do tabeli */
+    justify-content: center; /* Wy艣rodkowanie przycisk贸w */
+}
+
+/* 2. Baza dla przycisk贸w wewn膮trz switchera */
+.mode-switcher .btn {
+    position: relative;
+    z-index: 1;
+    margin: 0; /* Usuwamy odst臋py mi臋dzy przyciskami, 偶eby si臋 styka艂y */
+    border: 1px solid #ccc; /* Wyra藕na ramka */
+    transition: all 0.3s ease;
+}
+
+/* 3. EFEKT "艢WIECENIA" DLA HOVER I ACTIVE */
+.mode-switcher .btn:hover,
+.mode-switcher .btn.active {
+    /* U偶ywamy brightness, ale dodajemy konkretny kolor i cie艅, 偶eby "艣wieci艂o" */
+
+    filter: brightness(2);}
+
+/* 4. POPRAWKA ZAOKR膭GLE艃 - u偶ywamy .btn, a nie .btn-mode */
+.mode-switcher .btn:first-child {
+    border-radius: 5px 0 0 5px !important;
+}
+
+.mode-switcher .btn:last-child {
+    border-radius: 0 5px 5px 0 !important;
+}
+.table-wrapper {
+    margin-top: 20px;
+}
+/* Styl formularza inline */
+
+
+
+
+.tresc-popup {
+    cursor: pointer;
+}
+
+/* G艂贸wny kontener paska */
+
+
+/* Ka偶dy element (formy i div z przyciskiem) */
+
+
+
+
+/* Przycisk, 偶eby nie by艂 za wielki */
+
+
+
+/* Grupa inline wewn膮trz paska */
+
+/* Kontener formularza */
+/* Kontener główny - pozwala całym grupom przeskakiwać niżej */
+.filter-form {
+    display: flex !important;
+    flex-wrap: wrap !important; /* Pozwala na drugą linię */
+    align-items: center;        /* Środkuje label z inputem w pionie */
+    gap: 15px;                  /* Odstęp między grupami filtrów */
+    width: 100%;
+}
+
+/* Grupa: Label + Input obok siebie */
+.form-group.inline {
+    display: flex !important;
+    flex-direction: row !important; /* Napis po lewej, input po prawej */
+    align-items: center !important;
+    white-space: nowrap;            /* Napis nie złamie się do nowej linii */
+    flex: 0 1 auto;                 /* Grupa zajmuje tyle miejsca, ile potrzebuje */
+}
+
+/* Styl dla napisu (Label) */
+.form-group.inline label {
+    margin-right: 8px;              /* Odstęp od napisu do okienka */
+    margin-bottom: 0 !important;    /* Reset poprzednich ustawień */
+    font-size: 13px;
+}
+
+/* Styl dla okienka (Input) */
+.form-group.inline input {
+    width: 120px !important;        /* Stała szerokość okienka (dostosuj pod siebie) */
+    height: 30px !important;
+    padding: 4px 8px !important;
+    box-sizing: border-box;
+}
+
+/* Przyciski na końcu */
+.filter-actions {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+
+.text-left { text-align: left; }
+
+/* Przycisk masowego zapisu */
+.btn-save-mass {
+    background-color: #003366;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-save-mass:hover { filter: brightness(2); }
+
+
+
+.table-wrapper th:nth-child(1),
+.table-wrapper td:nth-child(1) {
+    left: 0;
+  width: 120px;
+      z-index: 30;
+}
+
+.table-wrapper th:nth-child(2),
+.table-wrapper td:nth-child(2) {
+    left: 120px;
+    width: 120px;
+    z-index: 30;
+}
+
+.table-wrapper th:nth-child(3),
+.table-wrapper td:nth-child(3) {
+    left: 120px;
+    width: 120px;
+    z-index: 30;
+}
+.table-wrapper th:nth-child(4),
+.table-wrapper td:nth-child(4) {
+   left: 120px;
+    width: 120px;
+    z-index: 30;
+}
+
+.table-wrapper th:nth-child(5),
+.table-wrapper td:nth-child(5) {
+   left: 120px;
+    width: 120px;
+    z-index: 30;
+}
+
+.table-wrapper th:nth-child(6),
+.table-wrapper td:nth-child(6) {
+    left: 120px;
+    z-index: 25;
+  width: 120px;
+}
+
+.table-wrapper th:nth-child(7),
+.table-wrapper td:nth-child(7) {
+    left: 120px;
+    z-index: 25;
+    width: auto;
+}
+
+
+/* --- STYLE TYLKO DLA TABELI W PODGL膭DZIE (SEKCJA B) --- */
+
+/* Kolumna 1: Ankieta (zazwyczaj szersza) */
+#section-list .table-wrapper th:nth-child(1),
+#section-list .table-wrapper td:nth-child(1) {
+    left: 0;
+    width: 150px; /* Zwi臋kszy艂em szeroko艣膰 dla nazwy ankiety */
+    z-index: 30;
+}
+
+/* Kolumna 2: Obszar */
+#section-list .table-wrapper th:nth-child(2),
+#section-list .table-wrapper td:nth-child(2) {
+    left: 150px; /* Musi by膰 r贸wne szeroko艣ci poprzedniej kolumny */
+    width: 100px;
+    z-index: 30;
+}
+
+/* Kolumna 3: Blok */
+#section-list .table-wrapper th:nth-child(3),
+#section-list .table-wrapper td:nth-child(3) {
+    left: 250px; /* 150px + 100px */
+    width: 100px;
+    z-index: 30;
+}
+
+/* Kolumna 4: Podblok */
+#section-list .table-wrapper th:nth-child(4),
+#section-list .table-wrapper td:nth-child(4) {
+    left: 350px;
+    width: 100px;
+    z-index: 30;
+}
+
+/* Kolumna 5: Pytanie */
+#section-list .table-wrapper th:nth-child(5),
+#section-list .table-wrapper td:nth-child(5) {
+    left: 450px;
+    width: 100px;
+    z-index: 30;
+}
+
+/* Kolumna 6: Kod PZ */
+#section-list .table-wrapper th:nth-child(6),
+#section-list .table-wrapper td:nth-child(6) {
+    left: 550px;
+    width: 150px;
+    z-index: 30;
+}
+
+/* Kolumna 7: Tre艣膰 Podzapytania (zazwyczaj p艂ynna szeroko艣膰) */
+#section-list .table-wrapper th:nth-child(7),
+#section-list .table-wrapper td:nth-child(7) {
+    z-index: 25;
+    width: auto;
+}
+
+/* Kolumna 8: Akcje (Przycisk Usu艅) */
+#section-list .table-wrapper th:nth-child(8),
+#section-list .table-wrapper td:nth-child(8) {
+    width: 80px;
+ text-align: right;}
+
+/* G艂贸wny kontener - teraz pionowy */
+.pancerny-toolbar {
+    display: flex !important;
+    flex-direction: column !important; /* Tytu艂 g贸ra, przyciski d贸艂 */
+    align-items: flex-start !important;
+    gap: 15px !important;
+    padding: 20px !important;
+    background-color: #fdfdfd;
+
+}
+
+/* Styl dla napisu na g贸rze */
+.toolbar-title {
+    margin: 0 !important;
+    font-size: 1.4rem;
+    color: #333;
+    width: 100%;
+
+    padding-bottom: 10px;
+}
+.filter-form {
+    display: flex;
+    flex-wrap: nowrap; /* 馃敟 wszystko w jednej linii */
+    align-items: flex-end;
+    gap: 6px;
+}
+
+/* kontenery */
+.form-group.inline {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 馃敟 W膭SKIE INPUTY */
+.form-group.inline input { /* g艂贸wna zmiana */
+    padding: 3px 5px;
+    font-size: 12px;
+}
+
+/* troch臋 wi臋ksze pola */
+#tresc {
+    width: 140px;
+}
+
+
+
+/* 馃敟 mniejsze przyciski */
+
+/* NOWY KONTENER: Uk艂ada przyciski i selecty w jednej linii pod tekstem */
+.toolbar-actions-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+/* Naprawa select贸w, 偶eby nie by艂y na 100% szeroko艣ci */
+.pancerny-toolbar select {
+    width: auto !important;
+    min-width: 100px !important;
+
+    /* KLUCZOWE W艁A艢CIWO艢CI DO WYR脫WNANIA WYSOKO艢CI */
+    height: 38px !important;       /* Ustaw sta艂膮 wysoko艣膰 (np. 38px to standard) */
+    padding: 6px 12px !important;  /* Taki sam padding dla wszystkich */
+    box-sizing: border-box !important; /* Sprawia, 偶e padding nie zwi臋ksza wysoko艣ci */
+    font-size: 14px !important;    /* Taka sama wielko艣膰 czcionki */
+    vertical-align: middle !important;
+}
+.pancerny-toolbar input {
+    height: 38px !important;
+    padding: 6px 12px !important;
+
+}
+
+/* Opcjonalnie: wyr贸wnanie etykiet (label), 偶eby tekst te偶 by艂 w jednej linii */
+.toolbar-item label {
+    display: flex;
+    align-items: center;
+    height: 38px; /* Taka sama wysoko艣膰 jak pola, aby tekst by艂 idealnie obok */
+    margin: 0 !important;
+}

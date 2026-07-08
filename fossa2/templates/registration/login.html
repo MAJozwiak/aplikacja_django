@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7f6;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .auth-card {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+        border-top: 8px solid #004b93;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .auth-card h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    form input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 15px;
+        background-color: #fafafa;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+    }
+
+    form input:focus {
+        border-color: #004b93;
+        background-color: #fff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 75, 147, 0.1);
+    }
+
+    /* 4. Przycisk w kolorze urzędowym */
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #004b93;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+        background-color: #003a72;
+    }
+
+    /* 5. Obsługa błędów logowania */
+    .errorlist {
+        color: #d9534f;
+        list-style: none;
+        padding: 0;
+        font-size: 14px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    /* 6. Link do rejestracji */
+    .card-footer {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 14px;
+        color: #777;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    .card-footer a {
+        color: #004b93;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .card-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="auth-card">
+    <h2>Zaloguj się</h2>
+
+    <!-- Wyświetlanie błędów, jeśli login/hasło są niepoprawne -->
+    {% if form.errors %}
+        <p class="errorlist">Niepoprawna nazwa użytkownika lub hasło.</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label for="id_username">Nazwa użytkownika:</label>
+            {{ form.username }}
+        </p>
+
+        <p>
+            <label for="id_password">Hasło:</label>
+            {{ form.password }}
+        </p>
+
+        <button type="submit" class="btn-submit">Zaloguj</button>
+    </form>
+
+    <div class="card-footer">
+        Nie masz konta? <a href="{% url 'register' %}">Zarejestruj się tutaj</a>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

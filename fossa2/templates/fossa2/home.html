@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Arkuszy | UKNF</title>
+    <style>
+        html, body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .header h1 { margin: 0; font-size: 22px; }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            padding: 10px;
+            box-sizing: border-box;
+            align-items: stretch;
+        }
+
+        .module {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #ccc;
+        }
+
+        .module-title {
+            color: #003366;
+            font-size: 16px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 3px solid #003366;
+            text-transform: uppercase;
+        }
+
+        .tiles-container {
+            flex: 1;
+            display: grid;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        /* Ustawienia siatki dla każdego modułu */
+        .grid-5 { grid-template-rows: repeat(5, 1fr); }
+        .grid-4 { grid-template-rows: repeat(4, 1fr); }
+        .grid-3 { grid-template-rows: repeat(4, 1fr); } /* 4 rzędy, żeby generator zajął 2 */
+
+        .tile {
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-bottom: 3px solid rgba(0,0,0,0.2);
+        }
+
+        .tile:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Specjalny styl dla generatora, żeby wypełnił dół */
+        .tile-generator {
+            grid-row: span 2; /* Zajmuje dwa rzędy wysokości */
+            background-color: #4CAF50;
+            font-size: 18px;
+        }
+
+        .footer {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .logout-btn {
+            background: #fff;
+            color: #003366;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+         /* Przycisk zamrażania */
+        .freeze-btn {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+                transition: filter 0.3s ease, transform 0.2s;
+
+        }
+
+.freeze-btn:hover {
+    /* Zmiana koloru na nieco ciemniejszy */
+    background-color: #bb2d3b;
+
+    /* Lekkie powiększenie i uniesienie */
+    transform: translateY(-3px) scale(1.02);
+
+    /* Dodanie cienia, który nadaje głębi (efekt przycisku nad powierzchnią) */
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+
+    /* Zamiast ekstremalnych filtrów, delikatne rozjaśnienie */
+    filter: brightness(1.1);
+}
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>Generator Arkuszy Oceny</h1>
+     {% if aktywny_rok %}
+            <p><strong> Bieżący rok roboczy: {{ aktywny_rok.rok }}</strong></p>
+            <form method="post" onsubmit="return confirm('Czy na pewno chcesz zamrozić rok {{ aktywny_rok.rok }}? Zmiana ta jest nieodwracalna i stworzy bazę pod nowy rok sprawozdawczy.');">
+                {% csrf_token %}
+                <button type="submit" name="zamroz_rok" class="freeze-btn">
+                    Zamroź {{ aktywny_rok.rok }} i otwórz {{ aktywny_rok.rok|add:1 }}
+                </button>
+            </form>
+        {% else %}
+            <p style="color: #ff9999;">Brak otwartego roku w bazie!</p>
+        {% endif %}
+</header>
+
+<div class="main-container">
+
+    <!-- MODUŁ 1 -->
+    <section class="module">
+        <h2 class="module-title">Struktura Arkusza</h2>
+        <div class="tiles-container grid-5">
+            <a href="{% url 'obszar_list' %}" class="tile">Obszary</a>
+            <a href="{% url 'blok_list' %}" class="tile">Bloki</a>
+            <a href="{% url 'podblok_list' %}" class="tile">Podbloki</a>
+            <a href="{% url 'pytanie_list' %}" class="tile">Pytania</a>
+            <a href="{% url 'podzapytanie_list' %}" class="tile">Podzapytania</a>
+        </div>
+    </section>
+
+    <!-- MODUŁ 2 -->
+    <section class="module">
+        <h2 class="module-title">Podstawy</h2>
+        <div class="tiles-container grid-4">
+            <a href="{% url 'slownik_list' %}" class="tile">Słowniki</a>
+            <a href="{% url 'podmiot_list' %}" class="tile">Podmioty</a>
+            <a href="{% url 'grupanaglowek_list' %}" class="tile">Grupy</a>
+            <a href="{% url 'ankieta_naglowek_list' %}" class="tile">Ankiety</a>
+        </div>
+    </section>
+
+    <!-- MODUŁ 3 -->
+    <section class="module">
+        <h2 class="module-title">Relacje i Akcja</h2>
+        <div class="tiles-container grid-3">
+            <a href="{% url 'grupa_podmioty_list' %}" class="tile">Relacja: Grupa - Podmiot</a>
+            <a href="{% url 'ankieta_pytania_list' %}" class="tile">Relacja: Ankieta - Pytania</a>
+            <a href="{% url 'generowanie_formularzy' %}" class="tile tile-generator">Generator</a>
+        </div>
+    </section>
+
+</div>
+
+<footer class="footer">
+    © 2026 UKNF | Zalogowany: <strong>{{ user.username }}</strong>
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="logout-btn">Wyloguj</button>
+</form>
+</footer>
+
+</body>
+</html>

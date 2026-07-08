@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Słowniki Excel</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+       <link rel="stylesheet" type="text/css" href="{% static 'css/slownik.css' %}">
+
+</head>
+<body>
+
+    <div class="header">
+        <h1>Słowniki</h1>
+        <div>
+            <a href="/" class="btn">Powrót</a>
+        </div>
+    </div>
+ <div class="form-container">
+    <div class="form-container">
+        <h2>Dodaj nowy Słownik</h2>
+        <form method="post" class="add-blok-inline-form">
+            {% csrf_token %}
+           {% if form.errors %}
+    <div class="error-summary-container">
+        <div class="error-summary-box">
+            <p>Proszę poprawić następujące błędy:</p>
+            <ul class="error-summary-list">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
+
+            <div class="form-group inline">
+                <label>Nazwa listy:</label>
+                {{ form.nazwa }}
+            </div>
+
+            <div class="form-group inline tresc-group">
+                <label>Słownik:</label>
+                {{ form.opcje }}
+            </div>
+         <div class="form-group inline">
+                <button type="submit" name="add_dropdown" class="btn">Dodaj</button>
+            </div>
+
+
+        </form>
+      <div class="info-note">
+
+    <div>
+        <strong>Informacja:</strong> Słowniki podajemy w formacie listy: <strong>['X', 'Y']</strong>.
+        Pamiętaj o nawiasach kwadratowych i cudzysłowach.
+    </div>
+</div>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Słownik</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in page_obj %}
+                    <tr>
+                        <td><strong>{{ item.nazwa }}</strong></td>
+                        <td><strong>{{ item.opcje }}</strong></td>
+                        <td>
+                            <div>
+                                <!-- TYLKO PRZYCISK USUŃ -->
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="dropdown_id" value="{{ item.id }}">
+                                    <button type="submit" name="delete_dropdown" class="btn" onclick="return confirm('Czy na pewno chcesz usunąć ten rekord?')">Usuń</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" style="text-align: center; padding: 20px;">Brak słowników. Dodaj pierwszy powyżej.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+    <!-- SEKCJA 3: PAGINACJA -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        <div class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn" style="padding: 5px 10px; font-size: 12px;">&laquo; pierwsza</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="padding: 5px 10px; font-size: 12px;">poprzednia</a>
+            {% endif %}
+
+            <span class="current">Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn" style="padding: 5px 10px; font-size: 12px;">następna</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn" style="padding: 5px 10px; font-size: 12px;">ostatnia &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>
